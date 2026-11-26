@@ -1,0 +1,9 @@
+closed_loop_ttc_check            commit_t=3.775  commit_d=7.000  tau_hat=0.292  tau_true=0.370  sep_min=0.874  collision=False  goal_t=15.750  dodged=True
+closed_loop_noball_check         commit_t=None  commit_d=None  tau_hat=None  tau_true=None  sep_min=None  collision=False  goal_t=15.750  dodged=False
+closed_loop_nododge              commit_t=None  commit_d=None  tau_hat=None  tau_true=None  sep_min=0.000  collision=True  goal_t=None  dodged=False
+speed_sweep/uav1.0_ball10        commit_t=5.525  commit_d=11.000  tau_hat=0.229  tau_true=0.287  sep_min=0.927  collision=False  goal_t=23.225  dodged=True
+speed_sweep/uav1.5_ball10        commit_t=3.775  commit_d=7.000  tau_hat=0.292  tau_true=0.370  sep_min=0.874  collision=False  goal_t=15.750  dodged=True
+speed_sweep/uav2.0_ball10        commit_t=2.950  commit_d=7.000  tau_hat=0.484  tau_true=0.361  sep_min=0.627  collision=False  goal_t=12.000  dodged=True
+speed_sweep/uav2.5_ball10        commit_t=2.475  commit_d=7.000  tau_hat=0.292  tau_true=0.336  sep_min=0.874  collision=False  goal_t=9.775  dodged=True
+speed_sweep/uav3.0_ball10        commit_t=2.150  commit_d=7.000  tau_hat=0.408  tau_true=0.327  sep_min=0.672  collision=False  goal_t=8.275  dodged=True
+speed_sweep/uav1.5_ball12        commit_t=3.825  commit_d=7.000  tau_hat=0.408  tau_true=0.320  sep_min=0.659  collision=False  goal_t=15.750  dodged=True

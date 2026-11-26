@@ -1,0 +1,23 @@
+{
+ "name": "closed_loop_noball_check",
+ "v_cruise": 1.5,
+ "ball_speed": 10.0,
+ "ball_present": false,
+ "avoidance": true,
+ "t_launch": 3.1467,
+ "commit_t": null,
+ "commit_d": null,
+ "tau_hat": null,
+ "tau_true": null,
+ "first_gate_t": null,
+ "first_vy_t": null,
+ "sep_min": null,
+ "sep_min_tick": null,
+ "sep_min_t": null,
+ "collision": false,
+ "goal_t": 15.75,
+ "y_max": 0.0,
+ "dodged": false,
+ "t_cmd_ms_mean": 0.2584224722735809,
+ "t_perc_ms_mean": 0.24387849761644187
+}

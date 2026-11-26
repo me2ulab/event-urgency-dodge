@@ -1,0 +1,23 @@
+{
+ "name": "closed_loop_nododge",
+ "v_cruise": 1.5,
+ "ball_speed": 10.0,
+ "ball_present": true,
+ "avoidance": false,
+ "t_launch": 3.1467,
+ "commit_t": null,
+ "commit_d": null,
+ "tau_hat": null,
+ "tau_true": null,
+ "first_gate_t": null,
+ "first_vy_t": null,
+ "sep_min": 0.0,
+ "sep_min_tick": 0.0583,
+ "sep_min_t": 4.125,
+ "collision": true,
+ "goal_t": null,
+ "y_max": 0.0,
+ "dodged": false,
+ "t_cmd_ms_mean": 0.33912010161521056,
+ "t_perc_ms_mean": 0.3257367807504231
+}

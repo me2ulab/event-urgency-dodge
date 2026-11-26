@@ -1,0 +1,123 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+    Help Height: 0
+    Tree Height: 300
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 1
+      Plane Cell Count: 30
+      Offset: {X: 12, Y: 0, Z: 0}
+      Color: 160; 160; 164
+      Alpha: 0.3
+      Reference Frame: <Fixed Frame>
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Corridor
+      Enabled: true
+      Topic:
+        Value: /ecsa/markers/world
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+        History Policy: Keep Last
+    - Class: rviz_default_plugins/MarkerArray
+      Name: UAV and ball
+      Enabled: true
+      Topic:
+        Value: /ecsa/markers/agents
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Path
+      Name: UAV path
+      Enabled: true
+      Color: 27; 127; 58
+      Line Style: Billboards
+      Line Width: 0.05
+      Alpha: 1
+      Topic:
+        Value: /ecsa/uav/path
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Path
+      Name: Ball path
+      Enabled: true
+      Color: 192; 57; 43
+      Line Style: Billboards
+      Line Width: 0.03
+      Alpha: 1
+      Topic:
+        Value: /ecsa/ball/path
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Marker Scale: 0.6
+      Show Names: false
+    - Class: rviz_default_plugins/Image
+      Name: Onboard camera
+      Enabled: true
+      Normalize Range: false
+      Topic:
+        Value: /ecsa/camera/image_raw
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Image
+      Name: Events (50 ms)
+      Enabled: true
+      Normalize Range: false
+      Topic:
+        Value: /ecsa/events/image
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Image
+      Name: Foveal crop and detection
+      Enabled: true
+      Normalize Range: false
+      Topic:
+        Value: /ecsa/avoidance/debug_image
+        Reliability Policy: Reliable
+        Depth: 5
+        History Policy: Keep Last
+        Durability Policy: Volatile
+  Enabled: true
+  Global Options:
+    Background Color: 30; 30; 34
+    Fixed Frame: world
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+      Distance: 16
+      Focal Point: {X: 8, Y: 0, Z: 1}
+      Pitch: 0.75
+      Yaw: 3.6
+      Target Frame: <Fixed Frame>
+    Saved: ~
+Window Geometry:
+  Width: 1500
+  Height: 900
+  Displays:
+    collapsed: false

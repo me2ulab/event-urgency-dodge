@@ -1,0 +1,23 @@
+{
+ "name": "closed_loop_ttc_check",
+ "v_cruise": 1.5,
+ "ball_speed": 10.0,
+ "ball_present": true,
+ "avoidance": true,
+ "t_launch": 3.1467,
+ "commit_t": 3.775,
+ "commit_d": 7.0,
+ "tau_hat": 0.29166666666666563,
+ "tau_true": 0.3699275362318845,
+ "first_gate_t": 3.725,
+ "first_vy_t": 3.775,
+ "sep_min": 0.8743,
+ "sep_min_tick": 0.8762,
+ "sep_min_t": 4.125,
+ "collision": false,
+ "goal_t": 15.75,
+ "y_max": 0.8742857142857166,
+ "dodged": true,
+ "t_cmd_ms_mean": 0.2625279223366666,
+ "t_perc_ms_mean": 0.2462339746349783
+}

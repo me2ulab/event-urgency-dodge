@@ -1,0 +1,23 @@
+{
+ "name": "speed_sweep/uav2.5_ball10",
+ "v_cruise": 2.5,
+ "ball_speed": 10.0,
+ "ball_present": true,
+ "avoidance": true,
+ "t_launch": 1.8133,
+ "commit_t": 2.475,
+ "commit_d": 7.0,
+ "tau_hat": 0.2916666666666681,
+ "tau_true": 0.3356666666666666,
+ "first_gate_t": 2.425,
+ "first_vy_t": 2.475,
+ "sep_min": 0.8743,
+ "sep_min_tick": 0.8844,
+ "sep_min_t": 2.8,
+ "collision": false,
+ "goal_t": 9.775,
+ "y_max": 0.8742857142857097,
+ "dodged": true,
+ "t_cmd_ms_mean": 0.28874780867700256,
+ "t_perc_ms_mean": 0.2719289285690194
+}
