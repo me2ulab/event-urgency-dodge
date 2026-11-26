@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>ecsa_ros</name>
+  <name>urgency_dodge_ros</name>
   <version>1.0.0</version>
-  <description>ROS 2 nodes for the event-camera collision-urgency dodge (ECSA-13): lockstep plant/renderer,
+  <description>ROS 2 nodes for the event-camera collision-urgency dodge: lockstep plant/renderer,
     ESIM event camera, foveal looming avoidance, and RViz visualisation.</description>
-  <maintainer email="noreply@example.com">ecsa_dodge_repro</maintainer>
+  <maintainer email="noreply@example.com">event-urgency-dodge</maintainer>
   <license>MIT</license>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>

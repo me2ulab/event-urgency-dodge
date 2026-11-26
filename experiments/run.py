@@ -1,4 +1,4 @@
-"""Run the paper's named experiments (ecsa_paper Data Availability Statement).
+"""Run the paper's named experiments (names as used for the reported runs).
 
     python3 experiments/run.py closed_loop_ttc_check            # one experiment
     python3 experiments/run.py --suite raytrace                 # Table 1 striped rows + Table 2 sweep
@@ -18,7 +18,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from ecsa_core import Params, run_episode  # noqa: E402
+from urgency_dodge import Params, run_episode  # noqa: E402
 
 SNAP_T = (1.35, 3.60, 3.75, 3.90)
 

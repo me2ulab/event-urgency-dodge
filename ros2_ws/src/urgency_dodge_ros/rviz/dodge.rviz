@@ -21,7 +21,7 @@ Visualization Manager:
       Name: Corridor
       Enabled: true
       Topic:
-        Value: /ecsa/markers/world
+        Value: /dodge/markers/world
         Durability Policy: Transient Local
         Reliability Policy: Reliable
         Depth: 1
@@ -30,7 +30,7 @@ Visualization Manager:
       Name: UAV and ball
       Enabled: true
       Topic:
-        Value: /ecsa/markers/agents
+        Value: /dodge/markers/agents
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last
@@ -43,7 +43,7 @@ Visualization Manager:
       Line Width: 0.05
       Alpha: 1
       Topic:
-        Value: /ecsa/uav/path
+        Value: /dodge/uav/path
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last
@@ -56,7 +56,7 @@ Visualization Manager:
       Line Width: 0.03
       Alpha: 1
       Topic:
-        Value: /ecsa/ball/path
+        Value: /dodge/ball/path
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last
@@ -71,7 +71,7 @@ Visualization Manager:
       Enabled: true
       Normalize Range: false
       Topic:
-        Value: /ecsa/camera/image_raw
+        Value: /dodge/camera/image_raw
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last
@@ -81,7 +81,7 @@ Visualization Manager:
       Enabled: true
       Normalize Range: false
       Topic:
-        Value: /ecsa/events/image
+        Value: /dodge/events/image
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last
@@ -91,7 +91,7 @@ Visualization Manager:
       Enabled: true
       Normalize Range: false
       Topic:
-        Value: /ecsa/avoidance/debug_image
+        Value: /dodge/avoidance/debug_image
         Reliability Policy: Reliable
         Depth: 5
         History Policy: Keep Last

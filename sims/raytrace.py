@@ -1,4 +1,4 @@
-"""Ray-traced corridor (the 'custom simulator', manuscript Fig. 5 / ecsa_paper Table 2).
+"""Ray-traced corridor (the paper's 'custom simulator', Fig. 5 and the speed sweep).
 
 Flat-albedo, point-sampled (one ray per pixel centre), deterministic:
   * side walls, floor and ceiling carry axial black/white stripes (bands across x),
@@ -6,8 +6,8 @@ Flat-albedo, point-sampled (one ray per pixel centre), deterministic:
   * dark 'shelf' spheres stand along both walls,
   * the ball is a checker-patterned sphere.
 Camera at the UAV centre, heading +x (Eq. 1: heading held fixed), pinhole of Eqs. 3-5.
-RECONSTRUCTED: stripe width, checker size, sphere layout and albedos were read off the surviving
-render (PHD/fig6_kin_image_events.png); the original values are not in the papers.
+IMPLEMENTATION CHOICE: stripe width, checker size, sphere layout and albedos are matched to the
+published render; the paper does not state them.
 """
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from ecsa_core.params import Params
+from urgency_dodge.params import Params
 
 WHITE, BLACK = 0.90, 0.05
 

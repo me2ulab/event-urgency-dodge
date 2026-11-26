@@ -21,16 +21,16 @@ def _rgba(r, g, b, a=1.0):
 
 class VizNode(Node):
     def __init__(self):
-        super().__init__("ecsa_viz")
+        super().__init__("dodge_viz")
         self.declare_parameter("experiment", "closed_loop_ttc_check")
         self.kind, self.P = experiments()[self.get_parameter("experiment").value]
-        self.pub_static = self.create_publisher(MarkerArray, "/ecsa/markers/world", LATCHED_QOS)
-        self.pub_dyn = self.create_publisher(MarkerArray, "/ecsa/markers/agents", 10)
-        self.pub_upath = self.create_publisher(Path, "/ecsa/uav/path", 10)
-        self.pub_bpath = self.create_publisher(Path, "/ecsa/ball/path", 10)
-        self.create_subscription(PoseStamped, "/ecsa/uav/pose", self.on_uav, LOCKSTEP_QOS)
-        self.create_subscription(PoseStamped, "/ecsa/ball/pose", self.on_ball, LOCKSTEP_QOS)
-        self.create_subscription(String, "/ecsa/avoidance/status", self.on_status, LOCKSTEP_QOS)
+        self.pub_static = self.create_publisher(MarkerArray, "/dodge/markers/world", LATCHED_QOS)
+        self.pub_dyn = self.create_publisher(MarkerArray, "/dodge/markers/agents", 10)
+        self.pub_upath = self.create_publisher(Path, "/dodge/uav/path", 10)
+        self.pub_bpath = self.create_publisher(Path, "/dodge/ball/path", 10)
+        self.create_subscription(PoseStamped, "/dodge/uav/pose", self.on_uav, LOCKSTEP_QOS)
+        self.create_subscription(PoseStamped, "/dodge/ball/pose", self.on_ball, LOCKSTEP_QOS)
+        self.create_subscription(String, "/dodge/avoidance/status", self.on_status, LOCKSTEP_QOS)
         self.upath, self.bpath = Path(), Path()
         self.upath.header.frame_id = self.bpath.header.frame_id = "world"
         self.status = {}

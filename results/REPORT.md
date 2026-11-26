@@ -1,6 +1,6 @@
 # Reproduction report
 
-Paper values: `PHD/ecsa_paper.docx` (Tables 1-3). Reproduced: this repository, one run per row (both simulators are deterministic). Miss = closest centre-to-centre distance; for hits the per-tick sampled minimum is shown, as in the paper.
+Paper values: the tables of the paper. Reproduced: this repository, one run per row (both simulators are deterministic). Miss = closest centre-to-centre distance; for hits the per-tick sampled minimum is shown, as in the paper.
 
 ## Table 1: nominal encounter (UAV 1.5 m/s, ball 10 m/s) and controls
 
@@ -28,7 +28,7 @@ Each cell is **paper → reproduced**.
 
 ## Table 3: command-path time on gz_closed_015
 
-Mean command-path time (detect + track + command) per tick: **0.46 ms** (of which detection 0.43 ms), 25 ms budget. Paper: 1.27 ms on the original laptop.
+Mean command-path time (detect + track + command) per tick: **0.48 ms** (of which detection 0.45 ms), 25 ms budget. Paper: 1.27 ms (different computer).
 
 ## Figures
 

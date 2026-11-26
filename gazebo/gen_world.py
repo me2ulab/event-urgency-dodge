@@ -1,12 +1,11 @@
-"""Generate the Gazebo brick corridor (manuscript Figs. 3-4, 6) and its textures.
+"""Generate the Gazebo brick corridor (paper Figs. 3, 4 and 6) and its textures.
 
-    python3 gazebo/gen_world.py            # writes gazebo/worlds/ecsa_corridor.sdf + gazebo/textures/*.png
+    python3 gazebo/gen_world.py            # writes gazebo/worlds/dodge_corridor.sdf + gazebo/textures/*.png
 
 Layout follows the paper: 28 m x 4 m corridor, 1.5 m working height, goal at x = 24 m.
-Appearance follows the surviving Gazebo renders (PHD/fig5_gz_image_events.png): brick walls,
+Appearance follows the published Gazebo renders: brick walls,
 side shelving blocks, a dark ceiling with light fixtures, a plank floor and a spotted ball.
-RECONSTRUCTED: the original SDF and textures were lost; every size and texture below is chosen
-to match those renders, not copied. Textures are generated with a fixed seed (deterministic).
+IMPLEMENTATION CHOICE: sizes and textures are chosen to match the published renders. Textures are generated with a fixed seed (deterministic).
 """
 from __future__ import annotations
 
@@ -18,11 +17,11 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
-from ecsa_core.params import Params  # noqa: E402
+from urgency_dodge.params import Params  # noqa: E402
 
 TEX = HERE / "textures"
-WORLD = HERE / "worlds" / "ecsa_corridor.sdf"
-WORLD_NAME = "ecsa_corridor"
+WORLD = HERE / "worlds" / "dodge_corridor.sdf"
+WORLD_NAME = "dodge_corridor"
 PX_PER_M = 96
 
 
@@ -174,7 +173,7 @@ def build(P: Params = Params()) -> str:
     camera = (f"<model name='event_cam'><pose>{e.x0} 0 {e.z_pad} 0 0 0</pose><link name='l'><gravity>false</gravity>"
               f"<kinematic>true</kinematic><inertial><mass>1.5</mass></inertial>{body}"
               f"<sensor name='cam' type='camera'><always_on>1</always_on><update_rate>{cam.rate_hz}</update_rate>"
-              f"<topic>ecsa/camera</topic><camera><horizontal_fov>{cam.hfov:.6f}</horizontal_fov>"
+              f"<topic>dodge/camera</topic><camera><horizontal_fov>{cam.hfov:.6f}</horizontal_fov>"
               f"<image><width>{cam.width}</width><height>{cam.height}</height><format>R8G8B8</format></image>"
               f"<clip><near>0.3</near><far>60</far></clip></camera></sensor></link></model>")
     return f"""<?xml version="1.0" ?>

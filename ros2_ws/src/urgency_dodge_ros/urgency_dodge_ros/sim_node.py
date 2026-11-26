@@ -1,7 +1,7 @@
 """Lockstep plant + renderer: owns the clock, the vehicle pose (Eq. 2), the ball (Eq. 38) and scoring.
 
 Tick k: render at the current pose -> publish image, UAV pose, ball pose, /clock (all stamped k*25 ms)
--> wait for /ecsa/cmd_vel stamped for tick k -> integrate -> tick k+1. Nothing advances without the
+-> wait for /dodge/cmd_vel stamped for tick k -> integrate -> tick k+1. Nothing advances without the
 command, so the ROS run is deterministic and equal to the offline runner (tests/test_ros_equivalence.py).
 
 Parameters: experiment (name from experiments/run.py), realtime (0 = as fast as possible, 1 = 40 Hz
@@ -24,13 +24,13 @@ from tf2_ros import TransformBroadcaster
 
 from .common import LATCHED_QOS, LOCKSTEP_QOS, ROOT, tick_of, tick_stamp, tick_time, to_image
 
-from ecsa_core.control import Ball, segment_min_distance  # noqa: E402
+from urgency_dodge.control import Ball, segment_min_distance  # noqa: E402
 from experiments.run import experiments, make_renderer  # noqa: E402
 
 
 class SimNode(Node):
     def __init__(self):
-        super().__init__("ecsa_sim")
+        super().__init__("dodge_sim")
         self.declare_parameter("experiment", "closed_loop_ttc_check")
         self.declare_parameter("realtime", 0.0)
         self.declare_parameter("output_dir", str(Path(ROOT) / "results" / "ros"))
@@ -40,15 +40,15 @@ class SimNode(Node):
         self.rt = float(self.get_parameter("realtime").value)
         self.out = Path(self.get_parameter("output_dir").value) / self.exp
         self.pub_img = self.create_publisher(__import__("sensor_msgs.msg", fromlist=["Image"]).Image,
-                                             "/ecsa/camera/image_raw", LOCKSTEP_QOS)
-        self.pub_uav = self.create_publisher(PoseStamped, "/ecsa/uav/pose", LOCKSTEP_QOS)
-        self.pub_ball = self.create_publisher(PoseStamped, "/ecsa/ball/pose", LOCKSTEP_QOS)
+                                             "/dodge/camera/image_raw", LOCKSTEP_QOS)
+        self.pub_uav = self.create_publisher(PoseStamped, "/dodge/uav/pose", LOCKSTEP_QOS)
+        self.pub_ball = self.create_publisher(PoseStamped, "/dodge/ball/pose", LOCKSTEP_QOS)
         self.pub_clock = self.create_publisher(Clock, "/clock", 10)
-        self.pub_done = self.create_publisher(String, "/ecsa/sim/summary", LATCHED_QOS)
-        self.pub_exp = self.create_publisher(String, "/ecsa/experiment", LATCHED_QOS)
+        self.pub_done = self.create_publisher(String, "/dodge/sim/summary", LATCHED_QOS)
+        self.pub_exp = self.create_publisher(String, "/dodge/experiment", LATCHED_QOS)
         self.tf = TransformBroadcaster(self)
-        self.create_subscription(TwistStamped, "/ecsa/cmd_vel", self.on_cmd, LOCKSTEP_QOS)
-        self.create_subscription(String, "/ecsa/avoidance/status", self.on_status, LOCKSTEP_QOS)
+        self.create_subscription(TwistStamped, "/dodge/cmd_vel", self.on_cmd, LOCKSTEP_QOS)
+        self.create_subscription(String, "/dodge/avoidance/status", self.on_status, LOCKSTEP_QOS)
         self._cmds = {}
         self._status = {}
         self._cv = threading.Condition()
@@ -74,7 +74,7 @@ class SimNode(Node):
     def wait_for_graph(self):
         """Start only when the event and avoidance nodes are listening (no tick may be lost)."""
         while rclpy.ok() and (self.pub_img.get_subscription_count() == 0 or self.pub_uav.get_subscription_count() == 0
-                              or self.count_publishers("/ecsa/cmd_vel") == 0):
+                              or self.count_publishers("/dodge/cmd_vel") == 0):
             time.sleep(0.1)
         time.sleep(float(self.get_parameter("start_delay").value))
 

@@ -1,8 +1,8 @@
 """ESIM event camera node: camera frames -> events (Eqs. 6-11) -> 50 ms window (Eq. 12).
 
 Publishes, stamped with the frame's tick:
-  /ecsa/events/count   32SC1  per-pixel event count in the window (what perception reads)
-  /ecsa/events/image   rgb8   net polarity (red ON, blue OFF) for RViz
+  /dodge/events/count   32SC1  per-pixel event count in the window (what perception reads)
+  /dodge/events/image   rgb8   net polarity (red ON, blue OFF) for RViz
 """
 import json
 
@@ -13,19 +13,19 @@ from std_msgs.msg import String
 
 from .common import LATCHED_QOS, LOCKSTEP_QOS, from_image, polarity_rgb, tick_of, tick_time, to_image
 
-from ecsa_core.loop import EventFront  # noqa: E402
+from urgency_dodge.loop import EventFront  # noqa: E402
 from experiments.run import experiments  # noqa: E402
 
 
 class EventCameraNode(Node):
     def __init__(self):
-        super().__init__("ecsa_event_camera")
+        super().__init__("dodge_event_camera")
         self.declare_parameter("experiment", "closed_loop_ttc_check")
         _, self.P = experiments()[self.get_parameter("experiment").value]
         self.front = EventFront(self.P)
-        self.pub_n = self.create_publisher(Image, "/ecsa/events/count", LOCKSTEP_QOS)
-        self.pub_v = self.create_publisher(Image, "/ecsa/events/image", 10)
-        self.create_subscription(Image, "/ecsa/camera/image_raw", self.on_image, LOCKSTEP_QOS)
+        self.pub_n = self.create_publisher(Image, "/dodge/events/count", LOCKSTEP_QOS)
+        self.pub_v = self.create_publisher(Image, "/dodge/events/image", 10)
+        self.create_subscription(Image, "/dodge/camera/image_raw", self.on_image, LOCKSTEP_QOS)
         self.last_k = -1
 
     def on_image(self, m: Image):

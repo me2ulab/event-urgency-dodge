@@ -1,10 +1,10 @@
 """Foveal looming avoidance: event counts -> detection (Eqs. 13-21) -> track/tau/gate (Eqs. 22-31)
 -> sidestep command (Eqs. 32-35).
 
-Inputs per tick (matched by stamp): /ecsa/events/count, /ecsa/uav/pose, /ecsa/ball/pose (the ball pose is
+Inputs per tick (matched by stamp): /dodge/events/count, /dodge/uav/pose, /dodge/ball/pose (the ball pose is
 read only for the Eq. 35 'ball behind' test, as printed in the paper).
-Outputs: /ecsa/cmd_vel (TwistStamped, world frame), /ecsa/avoidance/status (JSON),
-/ecsa/avoidance/debug_image (rgb8: fired pixels, centre crop yellow, components amber, b* green).
+Outputs: /dodge/cmd_vel (TwistStamped, world frame), /dodge/avoidance/status (JSON),
+/dodge/avoidance/debug_image (rgb8: fired pixels, centre crop yellow, components amber, b* green).
 """
 import json
 import math
@@ -18,8 +18,8 @@ from std_msgs.msg import String
 
 from .common import LOCKSTEP_QOS, from_image, tick_of, tick_time, to_image
 
-from ecsa_core.loop import Avoider  # noqa: E402
-from ecsa_core.perception import roi_bounds  # noqa: E402
+from urgency_dodge.loop import Avoider  # noqa: E402
+from urgency_dodge.perception import roi_bounds  # noqa: E402
 from experiments.run import experiments  # noqa: E402
 
 
@@ -29,18 +29,18 @@ def _f(x):
 
 class AvoidanceNode(Node):
     def __init__(self):
-        super().__init__("ecsa_avoidance")
+        super().__init__("dodge_avoidance")
         self.declare_parameter("experiment", "closed_loop_ttc_check")
         _, self.P = experiments()[self.get_parameter("experiment").value]
         self.av = Avoider(self.P)
         self.buf = {}
         self.last_k = -1
-        self.pub_cmd = self.create_publisher(TwistStamped, "/ecsa/cmd_vel", LOCKSTEP_QOS)
-        self.pub_st = self.create_publisher(String, "/ecsa/avoidance/status", LOCKSTEP_QOS)
-        self.pub_dbg = self.create_publisher(Image, "/ecsa/avoidance/debug_image", 10)
-        self.create_subscription(Image, "/ecsa/events/count", lambda m: self.put(m, "counts"), LOCKSTEP_QOS)
-        self.create_subscription(PoseStamped, "/ecsa/uav/pose", lambda m: self.put(m, "uav"), LOCKSTEP_QOS)
-        self.create_subscription(PoseStamped, "/ecsa/ball/pose", lambda m: self.put(m, "ball"), LOCKSTEP_QOS)
+        self.pub_cmd = self.create_publisher(TwistStamped, "/dodge/cmd_vel", LOCKSTEP_QOS)
+        self.pub_st = self.create_publisher(String, "/dodge/avoidance/status", LOCKSTEP_QOS)
+        self.pub_dbg = self.create_publisher(Image, "/dodge/avoidance/debug_image", 10)
+        self.create_subscription(Image, "/dodge/events/count", lambda m: self.put(m, "counts"), LOCKSTEP_QOS)
+        self.create_subscription(PoseStamped, "/dodge/uav/pose", lambda m: self.put(m, "uav"), LOCKSTEP_QOS)
+        self.create_subscription(PoseStamped, "/dodge/ball/pose", lambda m: self.put(m, "ball"), LOCKSTEP_QOS)
 
     def put(self, m, key):
         k = tick_of(m.header.stamp)

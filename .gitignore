@@ -4,7 +4,7 @@ __pycache__/
 ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
-ros2_ws/src/ecsa_ros/ecsa_ros/_root.py
+ros2_ws/src/urgency_dodge_ros/urgency_dodge_ros/_root.py
 gazebo/textures/
 gazebo/worlds/*.sdf
 results/gz_server.log

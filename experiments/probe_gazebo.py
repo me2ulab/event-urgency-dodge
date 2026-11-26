@@ -3,7 +3,7 @@ import sys, time
 from pathlib import Path
 import numpy as np, cv2
 ROOT = Path(__file__).resolve().parents[1]; sys.path.insert(0, str(ROOT))
-from ecsa_core import Params
+from urgency_dodge import Params
 from sims.gz_lockstep import GazeboLockstepRenderer
 P = Params(); out = ROOT / "results" / "gz_probe"; out.mkdir(parents=True, exist_ok=True)
 r = GazeboLockstepRenderer(P)

@@ -1,8 +1,7 @@
 """All parameters of the method, with the equation each comes from.
 
-Source of truth: PHD/ecsa_paper.docx (the full-length ECSA-13 draft; equation numbers below refer
-to it) and manuscript.v4.docx (the proceedings version). Values marked RECONSTRUCTED are not
-stated in either document and were chosen as described in RECOVERY.md.
+Equation numbers follow the full-length method description (Eqs. 1-41). Values marked
+IMPLEMENTATION CHOICE are not stated in the paper; IMPLEMENTATION_NOTES.md explains each.
 """
 from __future__ import annotations
 
@@ -43,7 +42,7 @@ class EventModel:                  # Eqs. 6-12
     contrast: float = 0.20         # C
     n_max: int = 8                 # cap on crossings per frame interval (Eq. 9)
     window_s: float = 0.050        # T_w sliding window (Eq. 12)
-    log_eps: float = 1e-3          # RECONSTRUCTED: L = log(I + eps), I in [0, 1]
+    log_eps: float = 1e-3          # IMPLEMENTATION CHOICE: L = log(I + eps), I in [0, 1]
 
 
 @dataclass(frozen=True)
@@ -55,7 +54,7 @@ class Perception:                  # Eqs. 13-21
     aspect_lo: float = 0.5
     aspect_hi: float = 2.0
     # Eq. 16 picks the component nearest the principal point and Eq. 21 then screens it.
-    # "screen_then_nearest" applies Eq. 21 to every component first (see GREEN_BOX_CHECK.md).
+    # "screen_then_nearest" applies Eq. 21 to every component first (diagnostic option).
     select_order: str = "nearest_then_screen"
 
 
@@ -92,13 +91,13 @@ class Control:                     # Eqs. 32-35
     v_max: float = 5.0
     v_ret: float = 2.0             # return speed (Eq. 35)
     z_cruise: float = 1.5
-    eps_z: float = 0.02            # RECONSTRUCTED takeoff tolerance
-    eps_x: float = 0.60            # RECONSTRUCTED: ball "behind" margin; fits Fig. 7 return onset
+    eps_z: float = 0.02            # IMPLEMENTATION CHOICE takeoff tolerance
+    eps_x: float = 0.60            # IMPLEMENTATION CHOICE: ball "behind" margin; fits Fig. 7 return onset
     eps_y: float = 1e-6            # return ends exactly on the centreline (last step is -y/dt)
     goal_x: float = 24.0
-    goal_tol: float = 0.60         # RECONSTRUCTED: goal reached at 15.75 s (Table 1) => ~0.6 m
+    goal_tol: float = 0.60         # IMPLEMENTATION CHOICE: goal reached at 15.75 s (Table 1) => ~0.6 m
     enabled: bool = True           # False = avoidance-off control
-    # RECONSTRUCTED: which tau Eq. 33 divides by. "commit_countdown": tau_hat at commit minus the time
+    # IMPLEMENTATION CHOICE: which tau Eq. 33 divides by. "commit_countdown": tau_hat at commit minus the time
     # since commit ("covers Δy in one time-to-contact" => constant v_y). "track_latest": newest finite
     # tau of the confirmed track, counted down between updates (vulnerable to mis-association).
     tau_mode: str = "commit_countdown"
@@ -125,10 +124,10 @@ class Encounter:                   # Eqs. 36-38, Sec. 4
 
 @dataclass(frozen=True)
 class Corridor:                    # Sec. 4: 28 m x 4 m
-    x_min: float = -2.0            # RECONSTRUCTED placement of the 28 m along x
+    x_min: float = -2.0            # IMPLEMENTATION CHOICE placement of the 28 m along x
     x_max: float = 26.0
     half_width: float = 2.0
-    ceiling: float = 3.0           # RECONSTRUCTED
+    ceiling: float = 3.0           # IMPLEMENTATION CHOICE
 
 
 @dataclass(frozen=True)

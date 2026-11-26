@@ -18,6 +18,6 @@
  "goal_t": 15.75,
  "y_max": 0.0,
  "dodged": false,
- "t_cmd_ms_mean": 0.4327978082346385,
- "t_perc_ms_mean": 0.40529466085180677
+ "t_cmd_ms_mean": 0.4770967163268495,
+ "t_perc_ms_mean": 0.4466317400984806
 }

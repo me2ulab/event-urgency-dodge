@@ -2,7 +2,7 @@
 
 Per tick: set the poses of `event_cam` and `ball` (one set_pose_vector request), advance the paused
 world by exactly one 25 ms step, and block until the camera frame produced by that step arrives.
-The vehicle is NOT simulated by Gazebo physics (ecsa_paper Sec. 3.1: both plants integrate the
+The vehicle is NOT simulated by Gazebo physics (paper Sec. 3.1: both plants integrate the
 commanded pose); Gazebo is the renderer of the brick corridor.
 """
 from __future__ import annotations
@@ -20,11 +20,11 @@ from gz.msgs.pose_v_pb2 import Pose_V
 from gz.msgs.world_control_pb2 import WorldControl
 from gz.transport import Node
 
-from ecsa_core.params import Params
+from urgency_dodge.params import Params
 
 ROOT = Path(__file__).resolve().parents[1]
-WORLD_FILE = ROOT / "gazebo" / "worlds" / "ecsa_corridor.sdf"
-WORLD = "ecsa_corridor"
+WORLD_FILE = ROOT / "gazebo" / "worlds" / "dodge_corridor.sdf"
+WORLD = "dodge_corridor"
 PARK = (0.0, 0.0, -50.0)            # ball position when absent (below the floor, out of view)
 
 
@@ -43,7 +43,7 @@ class GazeboLockstepRenderer:
         self.node = Node()
         self._cv = threading.Condition()
         self._img, self._count = None, 0
-        self.node.subscribe(Image, "/ecsa/camera", self._on_image)
+        self.node.subscribe(Image, "/dodge/camera", self._on_image)
         self._wait_service(f"/world/{WORLD}/set_pose_vector", timeout_s)
         self._wait_service(f"/world/{WORLD}/control", timeout_s)
         self.frames = 0

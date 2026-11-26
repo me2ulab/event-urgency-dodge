@@ -16,8 +16,8 @@ from matplotlib.patches import Patch, Rectangle  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from ecsa_core import Params  # noqa: E402
-from ecsa_core.perception import roi_bounds  # noqa: E402
+from urgency_dodge import Params  # noqa: E402
+from urgency_dodge.perception import roi_bounds  # noqa: E402
 
 RES = ROOT / "results"
 FIG = RES / "figures"
@@ -96,7 +96,7 @@ def isolation_figure(name, out):
 
 
 def trajectory_figure(name, out):
-    """Same two-panel style as the corrected manuscript Fig. 7, from the logged run."""
+    """Same two-panel style as the paper's Fig. 7, from the logged run."""
     s, L, S, d = load(name)
     t, x, y, bx, by = L["t"], L["x"], L["y"], L["bx"], L["by"]
     tl, tc = s["t_launch"], s["commit_t"]
@@ -146,7 +146,7 @@ def trajectory_figure(name, out):
 
 
 # ------------------------------------------------------------------------------------ report
-PAPER_T1 = {  # ecsa_paper Table 1: dodge (s), d (px), tau_hat/tau (s), miss (m), goal (s)
+PAPER_T1 = {  # paper, nominal encounter table: dodge (s), d (px), tau_hat/tau (s), miss (m), goal (s)
     "closed_loop_ttc_check": ("3.75", "8", "0.33/0.38", "0.77", "15.75"),
     "closed_loop_noball_check": ("none", "—", "—", "no dodge", "—"),
     "closed_loop_nododge": ("—", "—", "—", "0.10 (hit)", "—"),
@@ -169,7 +169,7 @@ def ours(s):
 
 def report():
     lines = ["# Reproduction report", "",
-             "Paper values: `PHD/ecsa_paper.docx` (Tables 1-3). Reproduced: this repository, one run per row "
+             "Paper values: the tables of the paper. Reproduced: this repository, one run per row "
              "(both simulators are deterministic). Miss = closest centre-to-centre distance; for hits the per-tick "
              "sampled minimum is shown, as in the paper.", "",
              "## Table 1: nominal encounter (UAV 1.5 m/s, ball 10 m/s) and controls", "",
@@ -185,7 +185,7 @@ def report():
     L = dict(np.load(RES / "gz_closed_015" / "log.npz"))
     lines += ["", "## Table 3: command-path time on gz_closed_015", "",
               f"Mean command-path time (detect + track + command) per tick: **{L['t_cmd_ms'].mean():.2f} ms** "
-              f"(of which detection {L['t_perc_ms'].mean():.2f} ms), 25 ms budget. Paper: 1.27 ms on the original laptop.", "",
+              f"(of which detection {L['t_perc_ms'].mean():.2f} ms), 25 ms budget. Paper: 1.27 ms (different computer).", "",
               "## Figures", "", "`results/figures/`: fig4_gazebo_frames, fig5_raytrace_frames, fig6_isolation, fig7_trajectory.", ""]
     (RES / "REPORT.md").write_text("\n".join(lines))
 

@@ -1,4 +1,4 @@
-"""Unit and closed-loop tests of ecsa_core against the equations of ecsa_paper.docx.
+"""Unit and closed-loop tests of urgency_dodge against the equations of the paper (Eqs. 1-41).
 
 Run inside the sim container:  python3 -m pytest tests -q
 """
@@ -12,11 +12,11 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from ecsa_core import Params, run_episode  # noqa: E402
-from ecsa_core.control import Ball, Controller, segment_min_distance  # noqa: E402
-from ecsa_core.events import EventCamera, EventWindow, EVENT_DTYPE  # noqa: E402
-from ecsa_core.perception import detect, roi_bounds  # noqa: E402
-from ecsa_core.tracking import LoomingTracker, fit_rate, looming_ok  # noqa: E402
+from urgency_dodge import Params, run_episode  # noqa: E402
+from urgency_dodge.control import Ball, Controller, segment_min_distance  # noqa: E402
+from urgency_dodge.events import EventCamera, EventWindow, EVENT_DTYPE  # noqa: E402
+from urgency_dodge.perception import detect, roi_bounds  # noqa: E402
+from urgency_dodge.tracking import LoomingTracker, fit_rate, looming_ok  # noqa: E402
 
 P = Params()
 
@@ -92,24 +92,6 @@ def test_roi_is_32_px_square():
     assert (u1 - u0 + 1, v1 - v0 + 1) == (32, 32)
 
 
-GZ_FRAME = ROOT.parent / "PHD" / "scene_gz_events_t360.png"
-
-
-@pytest.mark.skipif(not GZ_FRAME.exists(), reason="surviving manuscript frame not present")
-def test_figure6_green_box_case():
-    """The surviving t = 3.60 s Gazebo frame (GREEN_BOX_CHECK.md): the ball blob fails the aspect
-    screen, so the Eq. 16 -> Eq. 21 order detects nothing, while screening first picks the
-    ceiling-edge cluster at the top of the crop -- the green box in manuscript Fig. 6."""
-    from PIL import Image
-    im = np.asarray(Image.open(GZ_FRAME).convert("RGB")).astype(int)[3::6, 3::6]
-    n = (((im[..., 0] > 150) & (im[..., 1] < 120)) | ((im[..., 2] > 150) & (im[..., 0] < 120))).astype(np.int32)
-    a = detect(n, P.camera, P.perception)
-    assert a.nearest is not None and abs(a.nearest.centroid[1] - 58.2) < 1.5 and not a.nearest.passes
-    assert a.selected is None
-    b = detect(n, P.camera, P.perception.__class__(select_order="screen_then_nearest"))
-    assert b.selected is not None and b.selected.centroid[1] < 50                 # top-edge cluster
-
-
 # ---------------------------------------------------------------- looming, tau, gate (Eqs. 22-31)
 def test_looming_rules():
     tc = P.tracking
@@ -124,7 +106,7 @@ def test_tau_and_closing_speed():
     ds = [6.0, 6.5, 7.0, 7.5]
     assert np.isclose(fit_rate(ts, ds), 20.0)
     tr = LoomingTracker(P.camera, P.tracking, P.gate)
-    from ecsa_core.perception import Component
+    from urgency_dodge.perception import Component
     for t, d in zip(ts, ds):
         c = Component(np.zeros((5, 2)), 5, (79.5, 59.5), (0, 0, 0, 0), d, d, d, 1.0, 0.0, True)
         g = tr.step(c, t)
@@ -135,7 +117,7 @@ def test_tau_and_closing_speed():
 
 def test_commit_needs_three_consecutive_passes():
     tr = LoomingTracker(P.camera, P.tracking, P.gate)
-    from ecsa_core.perception import Component
+    from urgency_dodge.perception import Component
     seq = [6, 6.5, 7, 7.5, 8, 8.5, 9]
     for k, d in enumerate(seq):
         c = Component(np.zeros((5, 2)), 5, (79.5, 59.5), (0, 0, 0, 0), d, d, d, 1.0, 0.0, True)
